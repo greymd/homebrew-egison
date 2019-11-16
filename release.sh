@@ -20,7 +20,6 @@ RELEASE_ARCHIVE=
 readonly TARGET_BRANCH="master"
 readonly BUILDER_REPO="$TRAVIS_REPO_SLUG" # egison/homebrew-egison
 readonly BUILDER_REPO_NAME=${BUILDER_REPO##*/}
-readonly BUILD_REPO="egison/egison"
 ## User-Agent starts with Travis is required (https://github.com/travis-ci/travis-ci/issues/5649)
 readonly COMMON_HEADER=("--retry" "3" "-H" "User-Agent: Travis/1.0" "-H" "Authorization: token $GITHUB_AUTH" "-H" "Accept: application/vnd.github.v3+json" "-L" "-f")
 readonly RELEASE_API_URL="https://api.github.com/repos/${BUILDER_REPO}/releases"
@@ -36,7 +35,8 @@ init () {
 }
 
 get_version () {
-  LATEST_VERSION=$(get_latest_release "${BUILD_REPO}")
+  local _target_repo="$1"
+  LATEST_VERSION=$(get_latest_release "${_target_repo}")
   CURRENT_VERSION=$(get_latest_release "${BUILDER_REPO}")
   RELEASE_ARCHIVE="${TRAVIS_BUILD_DIR:-$THIS_DIR}/${FNAME}_${LATEST_VERSION}.zip"
   readonly LATEST_VERSION CURRENT_VERSION RELEASE_ARCHIVE
@@ -47,12 +47,13 @@ bump () {
   local _sha256hash
   local _release_id
   local _new_release_info
+  local _target_repo="$1"
   if [[ "${CURRENT_VERSION}" == "${LATEST_VERSION}" ]];then
     echo "Skip git push. It is latest version." >&2
     exit 0
   fi
   # Build tarball
-  ( build )
+  ( build "$_target_repo" )
   if [[ ! -s "${RELEASE_ARCHIVE}" ]];then
     echo "Failed to create '${RELEASE_ARCHIVE}'"
     exit 1
@@ -96,8 +97,9 @@ build () {
   echo "start build"
   local _exefile _pathsfile
   local _workdir="work-$RANDOM"
+  local _target_repo="$1"
   git clone -b "${LATEST_VERSION}" \
-    "https://github.com/${BUILD_REPO}.git" "${THIS_DIR}/egison"
+    "https://github.com/${_target_repo}.git" "${THIS_DIR}/egison"
   cd "${THIS_DIR}/egison"
 
   if cabal v2-update --help &> /dev/null ;then ## If cabal has v2-* sub-commands (more than 2.4.1)
@@ -190,6 +192,7 @@ get_latest_release () {
 
 main () {
   local _cmd
+  local _target_repo
   _cmd="${1-}"
   shift || true
   case "$_cmd" in
@@ -197,8 +200,9 @@ main () {
       init
       ;;
     bump)
-      get_version
-      bump
+      _target_repo="$1"
+      get_version "$_target_repo"
+      bump "$_target_repo"
       ;;
     *)
       exit 1

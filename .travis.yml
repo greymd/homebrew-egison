@@ -17,4 +17,4 @@ install:
 
 script:
     - bash release.sh init
-    - bash -x release.sh bump
+    - bash -x release.sh bump "egison/egison"
