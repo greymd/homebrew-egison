@@ -8,6 +8,12 @@ $ brew tap egison/egison
 $ brew install egison
 ```
 
+### Update
+
+```sh
+$ brew upgrade egison
+```
+
 ### Uninstallation
 
 ```sh
@@ -21,16 +27,18 @@ $ brew untap egison/egison
 
 ### How to build binary
 
+`cabal` version 2.4.1 or more is required.
+
 ```sh
 $ git clone https://github.com/egison/egison.git
 $ cd egison
-$ cabal update
-$ cabal install --only-dependencies --lib
-$ cabal configure
+$ cabal v2-update
+$ cabal v2-install --only-dependencies --lib
+$ cabal v2-configure
 $ _pathsfile="$(find "./dist-newstyle" -type f -name 'Paths_egison.hs' | head -n 1)"
 $ perl -i -pe 's@datadir[ ]*=[ ]*.*$@datadir = "/usr/local/lib/egison"@' "$_pathsfile"
 $ cp "$_pathsfile" ./hs-src
-$ cabal build
+$ cabal v2-build
 $ $(find "./dist-newstyle" -type f -name 'egison')
 ```
 
