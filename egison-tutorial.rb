@@ -3,8 +3,8 @@ class EgisonTutorial < Formula
   version VERSION
   desc "A tutorial program for the Egison programming language"
   homepage "https://www.egison.org/"
-  url "https://github.com/egison/homebrew-egison/releases/download/#{VERSION}/egison-tutorial_darwin_x86_64_#{VERSION}.zip"
-  sha256 "2f5c156dd2f4079cfe502aae2963a05b67978f02df4f01511c939f61b36fea30"
+  url "https://github.com/greymd/homebrew-egison/releases/download/#{VERSION}/egison-tutorial_darwin_x86_64_#{VERSION}.zip"
+  sha256 "4891d7455784be63f9a158412ebfb693c87426bf5152e7d1bb5e8ae94d10014b"
 
   depends_on "egison"
 
