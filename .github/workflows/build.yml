@@ -24,6 +24,7 @@ jobs:
       run: |
         curl --retry 3 -L https://downloads.haskell.org/~cabal/cabal-install-3.0.0.0/cabal-install-3.0.0.0-x86_64-apple-darwin17.7.0.tar.xz | tar x && mv ./cabal /usr/local/bin/
         cabal --version
+        brew install ghc jq
 
     - name: Deploy
       env:
