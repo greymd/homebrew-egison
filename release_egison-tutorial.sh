@@ -102,9 +102,9 @@ build () {
   cabal v2-install
   cabal v2-configure
   cabal v2-build
-  echo "egison-tutorial is succefully build." >&2
+  echo "egison-tutorial is successfully build." >&2
 
-  _exefile="$(find "${THIS_DIR}/dist-newstyle/" -type f  -name egison-tutorial | head -n 1)"
+  _exefile="$(find "${THIS_DIR}/egison-tutorial/dist-newstyle/" -type f  -name egison-tutorial | head -n 1)"
   ## Exit the function if file is not executable file.
   file "$_exefile" | grep -q 'executable' || return 1
 
