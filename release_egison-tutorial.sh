@@ -95,7 +95,7 @@ build () {
   echo "start build"
   local _exefile
   local _workdir="work-$RANDOM"
-  git "https://github.com/${BUILD_REPO}.git" "${THIS_DIR}/egison-tutorial"
+  git clone "https://github.com/${BUILD_REPO}.git" "${THIS_DIR}/egison-tutorial"
   cd "${THIS_DIR}/egison-tutorial"
 
   cabal v2-update
