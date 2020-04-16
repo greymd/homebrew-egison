@@ -17,6 +17,7 @@ readonly THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 LATEST_VERSION=
 CURRENT_VERSION=
 RELEASE_ARCHIVE=
+readonly GITHUB_AUTH="${GITHUB_AUTH:-$API_AUTH}"
 readonly TARGET_BRANCH="master"
 readonly BUILDER_REPO="$TRAVIS_REPO_SLUG" # egison/homebrew-egison
 readonly BUILDER_REPO_NAME=${BUILDER_REPO##*/}
@@ -94,8 +95,7 @@ build () {
   echo "start build"
   local _exefile
   local _workdir="work-$RANDOM"
-  git clone -b "${LATEST_VERSION}" \
-    "https://github.com/${BUILD_REPO}.git" "${THIS_DIR}/egison-tutorial"
+  git "https://github.com/${BUILD_REPO}.git" "${THIS_DIR}/egison-tutorial"
   cd "${THIS_DIR}/egison-tutorial"
 
   cabal v2-update

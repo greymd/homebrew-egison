@@ -19,13 +19,21 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-
-    - name: Set env
-      run:   echo ::set-env name=REPOSITORY_NAME::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' | sed -e "s/:refs//")
+    - name: Set secrets
       shell: bash
+      env:
+        ID_RSA: ${{secrets.ID_RSA}}
+        API_AUTH: ${{secrets.API_AUTH}}
 
-    # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
+    - name: Set repo env
+      shell: bash
+      run:   echo ::set-env name=REPOSITORY_NAME::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' | sed -e "s/:refs//")
+
+    - name: Install cabal
       run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+        curl --retry 3 -L https://downloads.haskell.org/~cabal/cabal-install-3.0.0.0/cabal-install-3.0.0.0-x86_64-apple-darwin17.7.0.tar.xz | tar x && mv ./cabal /usr/local/bin/
+        cabal --version
+
+        #    - name: Deploy
+        #      run: |
+        #        bash -x ./release_egison-tutorial.sh bump

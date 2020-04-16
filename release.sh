@@ -17,12 +17,13 @@ readonly THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 LATEST_VERSION=
 CURRENT_VERSION=
 RELEASE_ARCHIVE=
+readonly GITHUB_AUTH="${GITHUB_AUTH:-$API_AUTH}"
 readonly TARGET_BRANCH="master"
 readonly BUILDER_REPO="$TRAVIS_REPO_SLUG" # egison/homebrew-egison
 readonly BUILDER_REPO_NAME=${BUILDER_REPO##*/}
 readonly BUILD_REPO="egison/egison"
 ## User-Agent starts with Travis is required (https://github.com/travis-ci/travis-ci/issues/5649)
-readonly COMMON_HEADER=("--retry" "3" "-H" "User-Agent: Travis/1.0" "-H" "Authorization: token $GITHUB_AUTH" "-H" "Accept: application/vnd.github.v3+json" "-L" "-f")
+readonly COMMON_HEADER=("--retry" "3" "-H" "User-Agent: Travis/1.0" "-H" "Authorization: token ${GITHUB_AUTH}" "-H" "Accept: application/vnd.github.v3+json" "-L" "-f")
 readonly RELEASE_API_URL="https://api.github.com/repos/${BUILDER_REPO}/releases"
 
 # Initialize SSH keys
