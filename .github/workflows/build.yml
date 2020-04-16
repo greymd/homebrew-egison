@@ -30,10 +30,5 @@ jobs:
         ID_RSA: ${{secrets.ID_RSA}}
         API_AUTH: ${{secrets.API_AUTH}}
       run: |
-        echo GITHUB_REPOSITORY=$GITHUB_REPOSITORY
-        echo ::set-env name=REPOSITORY_NAME::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' | sed -e "s/:refs//")
-        echo ID_RSA=$ID_RSA
-        echo API_AUTH=$API_AUTH
-        echo REPOSITORY_NAME=$REPOSITORY_NAME
         bash -x ./release.sh init
-        # bash -x ./release_egison-tutorial.sh bump
+        bash -x ./release_egison-tutorial.sh bump

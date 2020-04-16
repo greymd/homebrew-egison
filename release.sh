@@ -29,6 +29,7 @@ readonly RELEASE_API_URL="https://api.github.com/repos/${BUILDER_REPO}/releases"
 # Initialize SSH keys
 init () {
   echo "start init"
+  mkdir -p "$HOME"/.ssh/
   printf "Host github.com\n\tStrictHostKeyChecking no\n" >> "$HOME"/.ssh/config
   echo "${ID_RSA}" | base64 --decode | gzip -d > "$HOME"/.ssh/id_rsa
   chmod 600 "$HOME"/.ssh/id_rsa
