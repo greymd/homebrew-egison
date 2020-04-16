@@ -20,13 +20,9 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     - name: Set secrets
-      shell: bash
       env:
         ID_RSA: ${{secrets.ID_RSA}}
         API_AUTH: ${{secrets.API_AUTH}}
-
-    - name: Set repo env
-      shell: bash
       run:   echo ::set-env name=REPOSITORY_NAME::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' | sed -e "s/:refs//")
 
     - name: Install cabal
