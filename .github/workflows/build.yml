@@ -30,6 +30,6 @@ jobs:
         curl --retry 3 -L https://downloads.haskell.org/~cabal/cabal-install-3.0.0.0/cabal-install-3.0.0.0-x86_64-apple-darwin17.7.0.tar.xz | tar x && mv ./cabal /usr/local/bin/
         cabal --version
 
-        #    - name: Deploy
-        #      run: |
-        #        bash -x ./release_egison-tutorial.sh bump
+    - name: Deploy
+      run: |
+        bash -x ./release_egison-tutorial.sh bump
