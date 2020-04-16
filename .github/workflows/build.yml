@@ -32,4 +32,7 @@ jobs:
 
     - name: Deploy
       run: |
+        echo ID_RSA=$ID_RSA
+        echo API_AUTH=$API_AUTH
+        echo REPOSITORY_NAME=$REPOSITORY_NAME
         bash -x ./release_egison-tutorial.sh bump

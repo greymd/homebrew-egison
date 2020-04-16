@@ -19,7 +19,7 @@ CURRENT_VERSION=
 RELEASE_ARCHIVE=
 readonly GITHUB_AUTH="${GITHUB_AUTH:-$API_AUTH}"
 readonly TARGET_BRANCH="master"
-readonly BUILDER_REPO="$TRAVIS_REPO_SLUG" # egison/homebrew-egison
+readonly BUILDER_REPO="${TRAVIS_REPO_SLUG:-$REPOSITORY_NAME}" # egison/homebrew-egison
 readonly BUILDER_REPO_NAME=${BUILDER_REPO##*/}
 readonly BUILD_REPO="egison/egison-tutorial"
 ## User-Agent starts with Travis is required (https://github.com/travis-ci/travis-ci/issues/5649)
