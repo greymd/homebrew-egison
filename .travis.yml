@@ -18,4 +18,4 @@ install:
 
 script:
     - bash release.sh init
-    - bash -x release.sh bump
+    - bash -x release.sh bump && bash -x release_egison-tutorial.sh bump

@@ -11,6 +11,7 @@ class EgisonTutorial < Formula
   def install
     bin.install "egison-tutorial"
     bin.install "egison-tutorial-impl"
+    lib.install "lib/egison-tutorial"
   end
 
   test do
