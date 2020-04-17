@@ -5,9 +5,8 @@
 # Required Environment Variables:
 #  * TRAVIS_BUILD_DIR -- Given by TravisCI
 #  * TRAVIS_REPO_SLUG -- Givven by TravisCI
-#  * ID_RSA           -- Given by TravisCI's settings screen
-#                        FYI: https://travis-ci.org/egison/homebrew-egison/settings
-#  * GITHUB_AUTH      -- Given by TravisCI's settings screen.
+#  * ID_RSA           -- Given by GitHub's secrets.
+#  * API_AUTH         -- Given by GitHub's secrets.
 #                        Auth token for GitHub Rest API.
 # ===================================
 set -e
@@ -19,7 +18,7 @@ CURRENT_VERSION=
 RELEASE_ARCHIVE=
 readonly GITHUB_AUTH="$API_AUTH"
 readonly TARGET_BRANCH="master"
-readonly BUILDER_REPO="${TRAVIS_REPO_SLUG:-$GITHUB_REPOSITORY}" # egison/homebrew-egison
+readonly BUILDER_REPO="$GITHUB_REPOSITORY" # egison/homebrew-egison
 readonly BUILDER_REPO_NAME=${BUILDER_REPO##*/}
 readonly BUILD_REPO="egison/egison"
 ## User-Agent starts with Travis is required (https://github.com/travis-ci/travis-ci/issues/5649)
