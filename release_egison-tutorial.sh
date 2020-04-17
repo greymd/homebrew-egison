@@ -12,7 +12,7 @@
 # ===================================
 set -e
 
-readonly FNAME=$(echo "egison-tutorial_$(uname)_$(uname -m)" | tr '[:upper:]' '[:lower:]' | tr -dc 'a-z0-9._')
+readonly FNAME=$(echo "egison-tutorial_$(uname)_$(uname -m)" | tr '[:upper:]' '[:lower:]' | tr -dc 'a-z0-9._-')
 readonly THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 LATEST_VERSION=
 CURRENT_VERSION=
@@ -67,6 +67,9 @@ bump () {
     exit 1
   fi
 
+  _upload_url=$(get_release_list | jq -r '.[] | select(.tag_name == "'"${LATEST_VERSION}"'") | .upload_url' | perl -pe 's/{.*}//')
+  upload_assets "${_upload_url}" "${RELEASE_ARCHIVE}"
+
   git clone -b "${TARGET_BRANCH}" \
     "git@github.com:${BUILDER_REPO}.git" \
     "${THIS_DIR}/${BUILDER_REPO_NAME}"
@@ -86,8 +89,6 @@ bump () {
   ## Push changes
   git push origin "${TARGET_BRANCH}"
 
-  _upload_url=$(get_release_list | jq '.[] | select(.tag_name == "'"${LATEST_VERSION}"'") | .upload_url' | perl -pe 's/{.*}//')
-  upload_assets "${_upload_url}" "${RELEASE_ARCHIVE}"
 }
 
 # for egison-tutorial
