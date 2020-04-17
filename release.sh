@@ -59,6 +59,7 @@ bump () {
     exit 1
   fi
 
+  rm -rf "${THIS_DIR:?}/${BUILDER_REPO_NAME}"
   git clone -b "${TARGET_BRANCH}" \
     "git@github.com:${BUILDER_REPO}.git" \
     "${THIS_DIR}/${BUILDER_REPO_NAME}"

@@ -31,5 +31,5 @@ jobs:
         ID_RSA: ${{secrets.ID_RSA}}
         API_AUTH: ${{secrets.API_AUTH}}
       run: |
-        bash -x ./release.sh init
+        bash ./release.sh init
         bash -x ./release.sh bump && bash -x ./release_egison-tutorial.sh bump

@@ -69,6 +69,7 @@ bump () {
   _upload_url=$(get_release_list | jq -r '.[] | select(.tag_name == "'"${LATEST_VERSION}"'") | .upload_url' | perl -pe 's/{.*}//')
   upload_assets "${_upload_url}" "${RELEASE_ARCHIVE}"
 
+  rm -rf "${THIS_DIR:?}/${BUILDER_REPO_NAME}"
   git clone -b "${TARGET_BRANCH}" \
     "git@github.com:${BUILDER_REPO}.git" \
     "${THIS_DIR}/${BUILDER_REPO_NAME}"
